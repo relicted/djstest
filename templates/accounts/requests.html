@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+
+{% block title %}Requests{% endblock %}
+
+{% block content %}
+{% for wr in webrequest_list %}
+<div class="ui styled fluid accordion">
+  <div class="title">
+    <i class="dropdown icon"></i>
+    {{ wr }}
+  </div>
+  <div class="content">
+    <p class="transition hidden">
+      {{ wr.time }}<br>
+      User: {{ wr.user }}<br>
+      Method: {{ wr.method }}<br>
+      Is Ajax: {{ wr.is_ajax }}<br>
+      Is Secure: {{ wr.is_secure }}<br>
+      Code: {{ wr.status_code }}<br>
+      Host: {{ wr.host }}<br>
+      Remote address: {{ wr.remote_addr }}<br>
+      uri: {{ wr.uri }}<br>
+      Cookies: <small>{{ wr.cookies }}</small><br>
+      Data:{% if wr.method == 'POST' %} {{ wr.post }} {% elif wr.method == 'GET' %} {{ wr.get }}{% endif %}
+    </p>
+  </div>
+</div>
+
+
+{% endfor %}
+
+{% endblock %}
+
+
+{% block extrascripts %}
+  <script>
+    $('.ui.accordion')
+      .accordion()
+    ;
+  </script>
+{% endblock %}

@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load store_extras %}
+{% block title %}Books List{% endblock %}
+
+{% block nav %}
+  {{ block.super }}
+  <div class="right menu">
+    <div class="item">
+        <a class="ui primary button" href="{% url 'store:create' %}">Add Book</a>
+    </div>
+  </div>
+{% endblock %}
+
+{% block content %}
+<div class="ui divided items">
+  {% for book in book_list %}
+  <div class="item">
+    <div class="image">
+      <img src="http://icons.iconarchive.com/icons/double-j-design/ravenna-3d/256/Book-icon.png">
+    </div>
+    <div class="content">
+      <a class="header">{{ book.title }}</a>
+      <div class="meta">
+        <span class="cinema">{% for author in book.authors.all %}{{ author }} {% endfor %}
+        </span>
+      </div>
+      <div class="description">
+        <p><small>{{ book.description }}</small></p>
+        <p><small><strong>ISBN: {{ book.isbn }}</strong></small></p>
+      </div>
+      <div class="extra">
+        <div class="ui label">Price: {{ book.price }}</div>
+{#        <div class="ui label"><i class="globe icon"></i> Additional Languages</div>#}
+      </div>
+      <div class="extra">
+        <div class="ui label pink"><a href="{% admin_edit book %}">edit in admin</a></div>
+        <div class="ui label green"><a href="{% url 'store:edit' pk=book.pk %}">edit as manager</a></div>
+        <form action="{% url 'store:delete' pk=book.pk %}" method="post">{% csrf_token %}
+        <button type="submit" class="ui label red">Delete book</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>{% endblock %}

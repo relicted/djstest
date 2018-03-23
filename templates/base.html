@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.css" />
+  <title>{% block title %}{% endblock %}</title>
+{% block extrastyles %}{% endblock %}
+</head>
+<body>
+
+<div class="ui main text container">
+  <div class="ui mini menu">
+  {% block nav %}
+    <a class='item' href="{% url 'store:list' %}">Books</a>
+    <a class='item' href="{% url 'accounts:requests' %}">Requests</a>
+
+      <div class="right menu">
+        <div class="item">
+          {% if not user.is_authenticated %}
+          <a class="ui primary button" href="{% url 'accounts:login' %}">Login</a>
+          {%  else  %}
+            <a class="ui button red" href="{% url 'accounts:logout' %}">Logout</a>
+          {% endif %}
+        </div>
+      </div>
+  {% endblock %}
+  </div>
+
+
+
+  {% for msg in messages %}
+    <div class="ui {{ msg.tags }} message">
+      <i class="close icon"></i>
+      <div class="header">
+      </div>
+      <p>{{ msg }}</p>
+    </div>
+
+  {% endfor %}
+
+
+{% block content %}{% endblock %}
+
+<p><small>{{ copyrights }}</small></p>
+
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.js"></script>
+<script>
+  $('.message .close')
+  .on('click', function() {
+    $(this)
+      .closest('.message')
+      .transition('fade')
+    ;
+  })
+;
+</script>
+{% block extrascripts %}{% endblock %}
+
+</body>
+</html>

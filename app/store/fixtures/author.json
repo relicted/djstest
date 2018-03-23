@@ -1,0 +1,1 @@
+[{"model": "store.author", "pk": 1, "fields": {"first_name": "Gaston", "last_name": "Leroux", "email": "Leroux@leroux.com"}}, {"model": "store.author", "pk": 2, "fields": {"first_name": "Alexander", "last_name": "Duma", "email": "ADuma@duma.com"}}]
