@@ -14,7 +14,7 @@ python3 manage.py migrate
 
 ## Fixtures
 
-To load in sample data for all tables at once:
+load books and accounts  data
 ```
 sh scripts/load_data.sh
 ```
