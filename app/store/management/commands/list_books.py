@@ -10,7 +10,6 @@ class Command(BaseCommand):
             '--order',
             dest='order',
             help='List books',
-            action='store_true',
             default='',
         )
 
@@ -26,5 +25,8 @@ class Command(BaseCommand):
             for book in qs.order_by('publish_date'):
                 self.stdout.write(f'{book.title} | {book.publish_date}')
         else:
-            for book in qs:
+            self.stdout.write('--order arg takes values "asc" and "desc"')
+
+        if not sort:
+            for book in qs.order_by('publish_date'):
                 self.stdout.write(f'{book.title} | {book.publish_date}')
